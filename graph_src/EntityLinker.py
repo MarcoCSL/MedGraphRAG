@@ -84,7 +84,7 @@ class EntityLinker:
             print("Loading FAISS Index")
             self.index = faiss.read_index(str(faiss_index_dir))
 
-    def link(self, query_word, fuzzy_f=1, sim_k=30, white_spaces=False):
+    def link(self, query_word, fuzzy_f=1, sim_k=30):
         query_word = query_word["text"]
         embedding = self.create_embeddings(query_word)
         embeddings_reduced = self.pca.transform(embedding)
@@ -94,13 +94,8 @@ class EntityLinker:
         top_k = self.df.iloc[hits[1][0]]
 
         database_strings = top_k['node_name'].tolist()
-
-        # print(database_strings)
-        if white_spaces:
-            query_word = query_word.replace(' ', '')
-            database_strings = [i.replace(' ', '') for i in database_strings] # nel caso volessi usare metodo senza spazi
-
-        scorer = fuzz.ratio if ' ' not in query_word and not white_spaces else fuzz.WRatio
+        
+        scorer = fuzz.ratio if ' ' not in query_word else fuzz.WRatio
 
         fuzzy_candidate = process.extract(
             query_word,

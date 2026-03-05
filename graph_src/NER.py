@@ -13,37 +13,32 @@ class NER:
         self.label_map = {
             "ANATOMICAL_SYSTEM": "anatomy",
             "CELL": "anatomy",
-            "CELLULAR_COMPONENT": "cellular_component",
             "DEVELOPING_ANATOMICAL_STRUCTURE": "anatomy",
             "IMMATERIAL_ANATOMICAL_ENTITY": "anatomy",
             "MULTI-TISSUE_STRUCTURE": "anatomy",
             "ORGAN": "anatomy",
+            "ORGANISM": "anatomy",
             "ORGANISM_SUBDIVISION": "anatomy",
             "ORGANISM_SUBSTANCE": "anatomy",
             "PATHOLOGICAL_FORMATION": "anatomy",
             "TISSUE": "anatomy",
-
+            "CELLULAR_COMPONENT": "cellular_component",
             "GENE_OR_GENE_PRODUCT": "gene_protein",
             "PROTEIN": "gene_protein",
             "DNA": "gene_protein",
             "RNA": "gene_protein",
-
             "DISEASE": "disease",
             "CANCER": "disease",
-
             "CHEMICAL": "drug",
             "SIMPLE_CHEMICAL": "drug",
-
-            # Not caught by ordinary NER (caught by my ruler!)
-            "ANATOMY": "anatomy",
             "DRUG": "drug",
             "BIOLOGICAL_PROCESS": "biological_process",
             "MOLECULAR_FUNCTION": "molecular_function",
             "PATHWAY": "pathway",
             "EFFECT_PHENOTYPE": "effect_phenotype",
             "EXPOSURE": "exposure",
-        }
-
+        } 
+    
         self.target_labels = set(self.label_map.values())
 
     def find(self, query, subset_deleter=True):
